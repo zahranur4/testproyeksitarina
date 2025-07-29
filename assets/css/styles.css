@@ -1198,3 +1198,20 @@ img {
     bottom: 3rem; /* Beri jarak sedikit lebih besar di desktop */
   }
 }
+
+.login-button {
+  display: inline-block;
+  background-color: #001f3f; /* Warna utama (Navy) */
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem; /* Membuat sudut sedikit melengkung */
+  font-weight: 600; /* Font semi-bold */
+  text-align: center;
+  text-decoration: none; /* Menghilangkan garis bawah pada link */
+  transition: background-color 0.3s ease; /* Efek transisi saat hover */
+}
+
+.login-button:hover {
+  background-color: #001a33; 
+  color: white;
+}
