@@ -4,7 +4,6 @@
 /*=============== VARIABLES CSS ===============*/
 :root {
   --header-height: 3.5rem;
-
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
   --first-color: #001f3f; /* Navy */
@@ -15,7 +14,6 @@
   --black-color: hsl(0, 0%, 6%);
   --body-color: hsl(0, 0%, 100%); /* putih */
   --container-color: hsl(0, 0%, 100%); /* putih */
-
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
   --body-font: "Montserrat", sans-serif;
@@ -27,12 +25,10 @@
   --h3-font-size: 1rem;
   --normal-font-size: 0.938rem;
   --small-font-size: 0.813rem;
-
   /*========== Font weight ==========*/
   --font-regular: 400;
   --font-semi-bold: 600;
   --font-bold: 700;
-
   /*========== z index ==========*/
   --z-tooltip: 10;
   --z-fixed: 100;
@@ -73,6 +69,8 @@ body {
   background-color: var(--body-color);
   color: var(--text-color);
   overflow-x: hidden; /* Mencegah horizontal scroll */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 button {
@@ -114,7 +112,7 @@ img {
 }
 
 .section {
-  padding-block: 3rem 1rem; /* Kurangi padding untuk mobile */
+  padding-block: 3rem 1rem;
 }
 
 .section__title {
@@ -127,6 +125,15 @@ img {
 
 .main {
   overflow: hidden; /* For animation ScrollReveal */
+}
+
+/* Center content for sections */
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 /*=============== HEADER & NAV ===============*/
@@ -163,7 +170,7 @@ img {
   font-size: 1.5rem;
   color: var(--first-color); 
   cursor: pointer;
-  margin-right: 1rem; /* Kurangi margin untuk mobile */
+  margin-right: 1rem;
 }
 
 /* Navigation for mobile devices */
@@ -177,15 +184,24 @@ img {
     -webkit-backdrop-filter: blur(16px); /* For safari*/
     width: 80%;
     height: 100%;
-    padding: 6rem 3rem 0;
+    padding: 6rem 2rem 0; /* Kurangi padding untuk mobile */
     transition: right 0.4s;
+  }
+  
+  /* Perbaiki tampilan login button di mobile */
+  .login-button {
+    display: block;
+    width: fit-content;
+    margin: 1rem auto 0;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
   }
 }
 
 .nav__list {
   display: flex;
   flex-direction: column;
-  row-gap: 2.5rem;
+  row-gap: 2rem; /* Kurangi jarak antar item untuk mobile */
   align-items: center; 
 }
 
@@ -249,49 +265,64 @@ img {
 /*=============== HOME / CAROUSEL ===============*/
 .home {
   position: relative;
-  padding-top: 0; /* Hapus padding top agar tidak ada space berlebih */
-  margin-top: var(--header-height); /* Gunakan margin untuk offset header */
+  padding-top: 0;
+  margin-top: var(--header-height);
 }
 
-/* Perbaikan Carousel */
+/* Carousel responsif */
 .carousel {
   width: 100%;
-  height: 50vh; /* Kurangi tinggi untuk mobile agar tidak terpotong */
-  min-height: 300px; /* Tinggi minimum lebih kecil */
-  max-height: 500px; /* Tinggi maksimum untuk mobile */
-  overflow: hidden;
+  position: relative;
+  background-color: #f8f9fa; /* Background untuk gambar yang tidak memenuhi */
 }
 
 .carousel-inner {
-  height: 100%;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
 .carousel-item {
-  height: 100%;
   position: relative;
-}
-
-.carousel-item img {
+  display: none;
+  float: left;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  margin-right: -100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: transform .6s ease-in-out;
 }
 
-/* Carousel Caption Responsif */
+.carousel-item.active,
+.carousel-item-next,
+.carousel-item-prev {
+  display: block;
+}
+
+/* Gambar carousel responsif */
+.carousel-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* Mengganti dari cover menjadi contain */
+  margin: 0 auto;
+}
+
+/* Caption carousel responsif */
 .carousel-caption {
   position: absolute;
-  bottom: 1rem;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   padding: 0;
   width: auto;
+  z-index: 10;
 }
 
 .carousel-caption .button {
-  padding: 0.6rem 1.5rem;
-  font-size: 0.875rem;
+  padding: 0.875rem 2rem;
+  font-size: 1rem;
   font-weight: 600;
   background-color: #001f3f;
   color: white;
@@ -299,24 +330,85 @@ img {
   text-decoration: none;
   transition: background-color 0.3s;
   display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .carousel-caption .button:hover {
   background-color: #001a33;
   color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Carousel Controls */
+/* Kontrol carousel responsif */
 .carousel-control-prev,
 .carousel-control-next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 5%;
+  color: #fff;
+  text-align: center;
+  background: none;
+  border: none;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
+}
+
+.carousel-control-prev {
+  left: 0;
+}
+
+.carousel-control-next {
+  right: 0;
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
   background-color: rgba(0, 31, 63, 0.7);
   border-radius: 50%;
-  padding: 20px;
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 0.3s ease;
+}
+
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+  background-color: rgba(0, 31, 63, 0.9);
+  transform: scale(1.1);
+}
+
+.carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 16 16'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+}
+
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 16 16'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 /*=============== BUTTON ===============*/
@@ -329,6 +421,8 @@ img {
   border-radius: 0.5rem;
   transition: background-color 0.4s;
   text-decoration: none;
+  align-items: center;
+  justify-content: center;
 }
 
 .button:hover {
@@ -336,14 +430,23 @@ img {
   color: white;
 }
 
-/*=============== NEW ===============*/
+/*=============== NEW (CLASSIC SECTION) ===============*/
 .new__container {
   padding-top: 1.5rem;
-  row-gap: 2rem; /* Kurangi gap untuk mobile */
+  row-gap: 3.5rem; /* Sesuai permintaan */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .new__content {
   row-gap: 2rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .new__card {
@@ -351,10 +454,11 @@ img {
   column-gap: 1rem;
   align-items: center;
   padding: 1rem;
+  width: 100%;
 }
 
 .new__img {
-  width: 120px; /* Kurangi ukuran gambar untuk mobile */
+  width: 150px; /* Sesuai permintaan */
   flex-shrink: 0;
 }
 
@@ -368,6 +472,7 @@ img {
 .new__description {
   font-size: var(--small-font-size);
   line-height: 1.4;
+  text-align: left;
 }
 
 .new__card:nth-child(2) img {
@@ -381,13 +486,23 @@ img {
 
 /*=============== ABOUT ===============*/
 .about__container {
-  row-gap: 3rem; /* Kurangi gap untuk mobile */
+  row-gap: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
 .about__data {
   position: relative;
   text-align: center;
   padding: 0 1rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .about__description {
@@ -408,13 +523,15 @@ img {
   max-width: 320px;
   justify-self: center;
   border-radius: 1rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
 }
 
 /*=============== FAVORITES ===============*/
 .favorite__container {
   padding-top: 1.5rem;
   display: grid;
-  grid-template-columns: 1fr; /* Satu kolom untuk mobile */
+  grid-template-columns: 1fr;
   justify-content: center;
   gap: 2rem;
   max-width: 100%;
@@ -425,20 +542,20 @@ img {
   position: relative;
   background-color: var(--container-color);
   box-shadow: 0 8px 16px hsla(0, 0%, 0%, 0.1);
-  padding: 4rem 1rem 1.25rem; /* Kurangi padding top */
+  padding: 4rem 1rem 1.25rem;
   border: 2px solid transparent;
   border-radius: 1rem;
   transition: all 0.4s;
   text-align: center;
-  max-width: 280px; /* Batasi lebar maksimum */
+  max-width: 280px;
   width: 100%;
-  margin: 0 auto; /* Center card */
+  margin: 0 auto;
 }
 
 .favorite__img {
-  width: 80px; /* Kurangi ukuran gambar untuk mobile */
+  width: 80px;
   position: absolute;
-  top: -1.5rem; /* Kurangi offset */
+  top: -1.5rem;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -472,7 +589,7 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px; /* Kurangi ukuran button */
+  width: 32px;
   height: 32px;
   padding: 0;
   font-size: 0.9rem;
@@ -488,6 +605,11 @@ img {
 .visit__container {
   position: relative;
   padding-block: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* ini untuk vertikal center */
+  min-height: 100vh; /* biar penuh layar */
 }
 
 .visit__bg,
@@ -517,23 +639,29 @@ img {
 .visit__data {
   text-align: center;
   padding: 2rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .visit__title {
   font-size: var(--h1-font-size);
   color: var(--title-color);
   margin-bottom: 1rem;
+  position: center;
 }
 
 .visit__description {
   font-size: var(--h3-font-size);
   color: var(--title-color);
   margin-bottom: 2rem;
+  position: center;
 }
 
 /* Maps responsif */
 .maps {
   margin-top: 2rem;
+  width: 100%;
+  max-width: 800px;
 }
 
 .maps iframe {
@@ -727,26 +855,51 @@ img {
 }
 
 /*=============== BREAKPOINTS ===============*/
-
 /* For very small devices */
 @media screen and (max-width: 320px){
   .container{
     margin-inline: 0.5rem;
   }
   
+  /* Carousel ultra mobile */
   .carousel {
-    height: 40vh;
-    min-height: 250px;
-    max-height: 350px;
+    height: auto;
+  }
+  
+  .carousel-item img {
+    max-height: 200px;
+  }
+  
+  .carousel-caption {
+    bottom: 0.5rem;
   }
   
   .carousel-caption .button {
-    padding: 0.5rem 1rem;
-    font-size: 0.75rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.7rem;
   }
   
+  /* Classic section ultra mobile */
   .new__img {
     width: 80px;
+  }
+  
+  .new__card {
+    column-gap: 0.75rem;
+    padding: 0.75rem;
+    flex-direction: column;
+  }
+  
+  .new__card:nth-child(2) img {
+    order: initial;
+  }
+  
+  .new__description {
+    text-align: center;
+  }
+  
+  .new__container {
+    row-gap: 2rem;
   }
   
   .favorite__container {
@@ -754,7 +907,7 @@ img {
     gap: 1.5rem;
     padding-inline: 0.5rem;
   }
-
+  
   .favorite__card {
     padding: 3.5rem 0.75rem 1rem;
     max-width: 250px;
@@ -764,6 +917,39 @@ img {
     width: 70px;
     top: -1.2rem;
   }
+  
+  /* Better touch targets */
+  .button,
+  .favorite__button,
+  .nav__toggle,
+  .nav__close {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Modal ultra mobile */
+  .modal__content {
+    padding: 1rem;
+    width: 95%;
+    margin: 15% auto;
+  }
+  
+  .modal__img {
+    width: 80px;
+  }
+  
+  .modal__title {
+    font-size: 1.1rem;
+  }
+  
+  .modal__desc {
+    font-size: 0.85rem;
+  }
+  
+  .button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
 }
 
 /* For small devices */
@@ -772,12 +958,25 @@ img {
     padding-block: 2rem 1rem;
   }
   
+  /* Carousel small mobile */
   .carousel {
-    height: 45vh;
-    min-height: 280px;
-    max-height: 400px;
+    height: auto;
   }
-
+  
+  .carousel-item img {
+    max-height: 250px;
+  }
+  
+  .carousel-caption {
+    bottom: 1rem;
+  }
+  
+  .carousel-caption .button {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.8rem;
+  }
+  
+  /* Classic section small mobile - vertical stack */
   .new__card{
     flex-direction: column;
     row-gap: 1rem;
@@ -787,7 +986,15 @@ img {
   .new__card:nth-child(2) img{
     order: initial;
   }
-
+  
+  .new__img {
+    width: 120px;
+  }
+  
+  .new__description {
+    text-align: center;
+  }
+  
   .favorite__container{
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -797,9 +1004,31 @@ img {
   .favorite__card {
     max-width: 260px;
   }
-
+  
   .about__description {
     text-align: center;
+  }
+  
+  /* Modal mobile fix */
+  .modal__content {
+    margin: 10% auto;
+    width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .modal__img {
+    width: 120px;
+  }
+  
+  /* Touch targets */
+  .nav__link {
+    padding: 0.75rem;
+  }
+  
+  /* Footer mobile */
+  .footer__content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
@@ -808,18 +1037,21 @@ img {
   .nav__menu{
     width: 50%;
   }
-
+  
+  /* Carousel medium */
   .carousel {
-    height: 55vh;
-    min-height: 350px;
-    max-height: 500px;
+    height: auto;
   }
-
+  
+  .carousel-item img {
+    max-height: 350px;
+  }
+  
   .carousel-caption .button {
-    padding: 0.75rem 2rem;
-    font-size: 0.95rem;
+    padding: 0.65rem 1.75rem;
+    font-size: 0.9rem;
   }
-
+  
   .home__container,
   .new__container,
   .about__container,
@@ -827,7 +1059,25 @@ img {
     grid-template-columns: 350px;
     justify-content: center;
   }
-
+  
+  /* Classic section back to horizontal */
+  .new__card {
+    flex-direction: row;
+    text-align: left;
+  }
+  
+  .new__card:nth-child(2) img {
+    order: -1;
+  }
+  
+  .new__img {
+    width: 140px;
+  }
+  
+  .new__description {
+    text-align: left;
+  }
+  
   .favorite__container{
    grid-template-columns: repeat(2, 1fr);
    gap: 2rem;
@@ -837,7 +1087,7 @@ img {
   .favorite__card {
     max-width: none;
   }
-
+  
   .footer__content{
     grid-template-columns: repeat(3, 1fr);
   }
@@ -848,34 +1098,46 @@ img {
 }
 
 @media screen and (min-width: 768px){
+  /* Carousel tablet */
   .carousel {
-    height: 60vh;
-    min-height: 400px;
-    max-height: 600px;
+    height: auto;
   }
-
+  
+  .carousel-item img {
+    max-height: 450px;
+  }
+  
   .carousel-caption {
-    bottom: 2rem;
+    bottom: 1.5rem;
   }
-
+  
   .carousel-caption .button {
-    padding: 1rem 2.5rem;
+    padding: 0.85rem 2.25rem;
     font-size: 1rem;
   }
-
+  
   .section {
     padding-block: 4rem 2rem;
   }
-
+  
   .new__container{    
     grid-template-columns: 1fr;
+  }
+  
+  /* Classic section tablet */
+  .new__img {
+    width: 150px; /* Full size sesuai permintaan */
+  }
+  
+  .new__container {
+    row-gap: 3.5rem; /* Full gap sesuai permintaan */
   }
   
   .new__content {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
   }
-
+  
   .about__container{
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
@@ -890,7 +1152,11 @@ img {
   .about__data .section__title{
     text-align: initial;
   }
-
+  
+  .about__description {
+    text-align: justify;
+  }
+  
   .favorite__container{
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
@@ -905,7 +1171,7 @@ img {
   .favorite__card {
     padding: 5rem 1rem 1.25rem;
   }
-
+  
   .footer__container{
     grid-template-columns: repeat(2, max-content);
     justify-content: space-between;
@@ -921,17 +1187,21 @@ img {
   .container{
     margin-inline: auto;
   }
-
+  
   .section{
     padding-block: 7rem 2rem;
   }
-
+  
+  /* Carousel desktop */
   .carousel {
-    height: 70vh;
-    min-height: 500px;
-    max-height: 700px;
+    height: auto;
   }
-
+  
+  .carousel-item img {
+    max-height: 600px;
+    object-fit: cover; /* Kembali ke cover di desktop */
+  }
+  
   .nav{
     height: calc(var(--header-height) + 2rem);
   }
@@ -951,11 +1221,12 @@ img {
     flex-direction: row;
     column-gap: 4rem;
   }
-
+  
   .new__container{
     padding-top: 4rem;
   }
   
+  /* Classic section desktop - column layout */
   .new__content{
     grid-template-columns: repeat(3, 1fr);
     column-gap: 3rem;
@@ -972,21 +1243,25 @@ img {
   }
   
   .new__img{
-    width: 200px;
+    width: 200px; /* Larger for desktop */
   }
-
+  
+  .new__description {
+    text-align: center;
+  }
+  
   .about__container{
     grid-template-columns: 1fr 1fr;
     gap: 6rem;
   }
-
+  
   .favorite__container{
     padding-top: 5.5rem;
     grid-template-columns: repeat(3, 1fr);
     gap: 3rem;
     max-width: 1000px;
   }
-
+  
   .favorite__card{
     padding: 6rem 1.5rem 2rem;
   }
@@ -1001,11 +1276,11 @@ img {
     height: 36px;
     font-size: 1rem;
   }
-
+  
   .visit__container{
     padding-block: 4rem;
   }
-
+  
   .footer{
     padding-block: 5rem 3rem;
   }
@@ -1013,7 +1288,7 @@ img {
   .footer__content{
     column-gap: 4.5rem;
   }
-
+  
   .scrollup{
     right: 3rem;
   }
@@ -1022,3 +1297,4 @@ img {
     height: 450px;
   }
 }
+
