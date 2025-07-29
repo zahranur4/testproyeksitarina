@@ -132,7 +132,7 @@ img {
 .header {
   position: fixed;
   width: 100%;
-  top: 0;
+  top: 5;
   left: 0;
   background-color: transparent;
   z-index: var(--z-fixed);
@@ -160,12 +160,14 @@ img {
 .nav__toggle,
 .nav__close {
   font-size: 1.5rem;
-  color: var(--title-color);
+  color: var(--first-color); 
   cursor: pointer;
+  margin-right: 3rem; 
 }
 
 /* Navigation for mobile devices */
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1120px) {
+
   .nav__menu {
     position: fixed;
     top: 0;
@@ -184,6 +186,7 @@ img {
   display: flex;
   flex-direction: column;
   row-gap: 2.5rem;
+  align-items: center; 
 }
 
 .nav__link {
@@ -295,7 +298,7 @@ img {
 }
 
 .home__image {
-  max-width: 400px;
+  max-width: 40px;
   justify-self: center;
 }
 
@@ -466,13 +469,13 @@ img {
 }
 
 .favorite__button {
-  color: white;
-  padding: 0.25rem;
-  font-size: 1.25rem;
-  position: absolute;
-  bottom: 1.2rem;
-  right: 1rem;
-  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  font-size: 1rem;
 }
 
 .favorite__card:hover {
@@ -1211,24 +1214,34 @@ img {
   color: #000;
 }
 
-.carousel-caption {
-  position: absolute;
-  /* Atur jarak dari bawah agar tidak menutupi konten gambar */
-  bottom: 1rem;
-  
-  /* Atur agar tidak ada padding atas dari default Bootstrap */
-  padding-top: 0; 
-  padding-bottom: 1rem; /* Beri sedikit ruang napas di bawah tombol */
-
-  /* Ini opsional, agar posisi tetap di tengah jika lebar caption bermasalah */
-  left: 0;
-  right: 0;
+.carousel-caption .button {
+  /* Ukuran default untuk mobile */
+  padding: 0.5rem 1.5rem;
+  font-size: 0.875rem; /* Ukuran font lebih kecil */
+  font-weight: 600;
 }
 
-/* Penyesuaian untuk layar lebih besar (Desktop) */
-@media (min-width: 768px) {
+.carousel-caption {
+  position: absolute;
+  /* Jarak dari bawah di mobile */
+  bottom: 0.7rem; 
+  left: 0;
+  right: 0;
+  padding-top: 0; 
+  padding-bottom: 0;
+}
+
+/* Penyesuaian untuk layar lebih besar (Tablet dan Desktop) */
+@media screen and (min-width: 768px) {
   .carousel-caption {
-    bottom: 3rem; /* Beri jarak sedikit lebih besar di desktop */
+    /* Jarak dari bawah di layar besar */
+    bottom: 3rem; 
+  }
+
+  .carousel-caption .button {
+    /* Kembalikan ukuran tombol ke ukuran normal di layar besar */
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
   }
 }
 
