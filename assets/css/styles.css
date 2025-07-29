@@ -424,10 +424,12 @@ img {
 
 /*=============== FAVORITES ===============*/
 .favorite__container {
-  padding-top: 3.5rem;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4rem 1.5rem;
+  padding-top: 1.5rem;
+  grid-template-columns: 220px; /* Satu kolom di tengah */
+  justify-content: center;
+  gap: 3rem 1.5rem;
 }
+
 
 .favorite__card {
   position: relative;
@@ -675,9 +677,14 @@ img {
 }
 
 /* For medium devices */
-@media screen and (min-width: 576px){
+@media screen and (min-width: 576px) {
   .nav__menu{
     width: 50%;
+  }
+
+  .favorite__container {
+    grid-template-columns: repeat(2, 200px); 
+    justify-content: center;
   }
 
   .home__container,
@@ -833,9 +840,10 @@ img {
 
   .favorite__container{
     padding-top: 5.5rem;
-    grid-template-columns: repeat(3, 240px);
+    grid-template-columns: repeat(3, 200px); /* Menjadi tiga kolom */
     gap: 5.5rem 2rem;
   }
+
   .favorite__card{
     padding: 9.75rem 1.5rem 2rem;
   }
@@ -893,26 +901,51 @@ img {
 
 /* Konten dalam Carousel */
 .home__content {
-  display: grid;
+  display: flex;
+  flex-direction: column-reverse; /* Teks di atas gambar di layar kecil */
   align-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  height: 100%;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
 }
 
 .home__data {
   text-align: center;
+  max-width: 600px;
+  width: 100%;
 }
 
 .home__title {
-  font-size: 3rem;
+  font-size: 2.2rem;
   margin-bottom: 1rem;
   color: #001f3f;
 }
 
 .home__image img {
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
+  height: auto;
   margin: 0 auto;
+  display: block;
+}
+
+/* Untuk layar besar (tablet ke atas) */
+@media screen and (min-width: 768px) {
+  .home__content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem;
+  }
+
+  .home__title {
+    font-size: 3rem;
+    text-align: left;
+  }
+
+  .home__data {
+    text-align: left;
+  }
 }
 
 /* Tombol */
@@ -1181,7 +1214,7 @@ img {
 .carousel-caption {
   position: absolute;
   /* Atur jarak dari bawah agar tidak menutupi konten gambar */
-  bottom: 2rem;
+  bottom: 1rem;
   
   /* Atur agar tidak ada padding atas dari default Bootstrap */
   padding-top: 0; 
