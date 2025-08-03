@@ -317,6 +317,7 @@ img {
 }
 
 /* Caption carousel responsif */
+/* Caption carousel responsif */
 .carousel-caption {
   position: absolute;
   bottom: 2rem;
@@ -324,13 +325,14 @@ img {
   transform: translateX(-50%);
   text-align: center;
   padding: 0;
-  width: auto;
+  width: auto; /* Ubah dari width: auto ke width: 90% */
+  max-width: 90%; /* Batasi lebar maksimum */
   z-index: 10;
 }
 
 .carousel-caption .button {
-  padding: 0.875rem 2rem;
-  font-size: 1rem;
+  padding: 0.75rem 1.5rem; /* Kurangi padding horizontal */
+  font-size: 0.9rem; /* Kurangi ukuran font */
   font-weight: 600;
   background-color: #001f3f;
   color: white;
@@ -339,6 +341,45 @@ img {
   transition: background-color 0.3s;
   display: inline-block;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 200px; /* Batasi lebar maksimum tombol */
+  white-space: nowrap; /* Mencegah teks turun ke baris baru */
+  overflow: hidden; /* Sembunyikan teks yang kelebihan */
+  text-overflow: ellipsis; /* Tampilkan "..." jika teks terlalu panjang */
+}
+
+.carousel-caption .button:hover {
+  background-color: #001a33;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Untuk layar kecil */
+@media screen and (max-width: 768px) {
+  .carousel-caption {
+    bottom: 1.5rem;
+    width: 80%; /* Lebar caption lebih kecil di mobile */
+  }
+  
+  .carousel-caption .button {
+    padding: 0.6rem 1.2rem; /* Padding lebih kecil */
+    font-size: 0.85rem; /* Font lebih kecil */
+    max-width: 180px; /* Lebar maksimum lebih kecil */
+  }
+}
+
+/* Untuk layar sangat kecil */
+@media screen and (max-width: 480px) {
+  .carousel-caption {
+    bottom: 1rem;
+    width: 70%; /* Lebar caption sangat kecil */
+  }
+  
+  .carousel-caption .button {
+    padding: 0.5rem 1rem; /* Padding minimal */
+    font-size: 0.8rem; /* Font minimal */
+    max-width: 150px; /* Lebar maksimum minimal */
+  }
 }
 
 .carousel-caption .button:hover {
