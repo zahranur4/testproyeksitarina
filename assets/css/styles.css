@@ -273,7 +273,8 @@ img {
 .carousel {
   width: 100%;
   position: relative;
-  background-color: #f8f9fa; /* Background untuk gambar yang tidak memenuhi */
+  background-color: transparent; /* Ubah dari #f8f9fa menjadi transparent */
+  overflow: hidden; /* Tambahkan ini untuk memastikan tidak ada overflow */
 }
 
 .carousel-inner {
@@ -299,13 +300,51 @@ img {
   display: block;
 }
 
-/* Gambar carousel responsif */
+/* Gambar carousel - PERBAIKAN UTAMA */
 .carousel-item img {
   display: block;
-  width: 100%;
+  width: 100vw; /* Gunakan viewport width untuk memastikan full width */
   height: auto;
-  object-fit: contain; /* Mengganti dari cover menjadi contain */
-  margin: 0 auto;
+  min-height: 250px; /* Tambahkan min-height */
+  max-width: none; /* Override max-width dari CSS global */
+  object-fit: cover; /* Ubah dari contain ke cover */
+  object-position: center; /* Posisikan gambar di tengah */
+  margin: 0;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%); /* Center gambar secara perfect */
+}
+
+@media screen and (max-width: 480px) {
+  .carousel-item img {
+    max-height: 250px;
+    min-height: 200px;
+    object-fit: cover; /* Tetap cover di mobile */
+  }
+}
+
+/* Untuk tablet */
+@media screen and (min-width: 576px) {
+  .carousel-item img {
+    max-height: 350px;
+    min-height: 300px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .carousel-item img {
+    max-height: 450px;
+    min-height: 400px;
+  }
+}
+
+/* Untuk desktop */
+@media screen and (min-width: 1150px) {
+  .carousel-item img {
+    max-height: 600px;
+    min-height: 500px;
+    object-fit: cover; /* Tetap cover di desktop juga */
+  }
 }
 
 /* Caption carousel responsif */
